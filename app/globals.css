@@ -1,3 +1,13 @@
+/* Tailwind offers directives like @import, @theme, @apply, @source, @utility, @variant, @custom-variant, @reference and 
+more... for base, components and utilities (they are parts of an approach to structuring and organizing styles using css 
+configuration file method) */
+
+/* Base applies styles to the entire application for your elements like H1, P tag should have a specific style across project. */
+/* Components are used to style specific components or reusable UI elements like buttons, cards, etc. */
+/* Utilities are atomic styles for individual properties like margins, padding, typography, colors and more... */
+
+/* @apply inserts Tailwind CSS styles into your CSS, allowing you to use them as if they were regular CSS properties. */
+
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
 
@@ -134,7 +144,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* used for resetting and normalizing styles */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -159,7 +168,6 @@
   }
 }
 
-/* reusable component level styles */
 @layer components {
   .btn-call {
     @apply inline-block px-7 py-3 font-bold text-sm leading-5 text-white transition-colors duration-150 bg-success-100 border border-transparent rounded-full shadow-sm focus:outline-none focus:shadow-2xl active:bg-success-200 hover:bg-success-200 min-w-28 cursor-pointer items-center justify-center overflow-visible;
@@ -296,7 +304,6 @@
   }
 }
 
-/* utilities that allow us to make these classes reusable across the app */
 @utility dark-gradient {
   @apply bg-gradient-to-b from-[#1A1C20] to-[#08090D];
 }
