@@ -2,6 +2,9 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { dummyInterviews } from "@/constants";
+import InterviewCard from "@/components/InterviewCard";
+
 const page = () => {
   return (
     <>
@@ -13,7 +16,7 @@ const page = () => {
           </p>
 
           {/* asChild means don’t render your own <button> element. Just pass your props (like class names) to the child I
-        give you (in this case, <Link>) and let it be the rendered element. */}
+          give you (in this case, <Link>) and let it be the rendered element. */}
           <Button asChild className="btn-primary max-sm:w-full">
             <Link href="/interview">Start an Interview</Link>
           </Button>
@@ -32,15 +35,22 @@ const page = () => {
         <h2>Your Interviews</h2>
 
         <div className="interviews-section">
-          <p>You haven&apos;t taken any interviews yet</p>
+          {/* {...interview} spreads all key-value pairs from  the interview object into props. */}
+          {dummyInterviews.map((interview) => (
+            <InterviewCard {...interview} key={interview.id} />
+          ))}
         </div>
+
+        {/* <p>You haven&apos;t taken any interviews yet</p> */}
       </section>
 
       <section className="flex flex-col gap-6 mt-8">
         <h2>Take an Interview</h2>
 
         <div className="interviews-section">
-          <p>There are no interviews available</p>
+          {dummyInterviews.map((interview) => (
+            <InterviewCard {...interview} key={interview.id} />
+          ))}
         </div>
       </section>
     </>
