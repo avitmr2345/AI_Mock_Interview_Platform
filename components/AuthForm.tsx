@@ -1,4 +1,4 @@
-// In next.js, when we use some client set of functianlities like button click, input or forms i.e. typically a client
+// In next.js, when we use some client set of functionalities like button click, input or forms i.e. typically a client
 // render component, we need to specify that this component is a client component.
 // Simply, this tells Next.js this is a client component. Required when using hooks like useState, useEffect, or useForm.
 "use client";
@@ -45,7 +45,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         toast.success("Account created successfully. Please sign in.");
         router.push("/sign-in");
       } else {
-        toast.success("Sign in successfully.");
+        toast.success("Signed in successfully.");
         router.push("/");
       }
     } catch (error) {
@@ -71,7 +71,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           >
             {!isSignIn && (
               <FormField
-                control={form.control} // Control connects the field to the form state
+                control={form.control} // control connects the field to the form state
                 name="name"
                 label="Name"
                 placeholder="Your Name"
