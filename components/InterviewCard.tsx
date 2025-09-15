@@ -4,8 +4,9 @@ import { getRandomInterviewCover } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
+import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
-const InterviewCard = ({
+const InterviewCard = async ({
   id,
   userId,
   role,
@@ -13,9 +14,10 @@ const InterviewCard = ({
   techstack,
   createdAt,
 }: InterviewCardProps) => {
-  // feedback is not provided in the props, so we assume it is null for now. Assuming feedback has a structure like
-  // { createdAt: string, totalScore: number, finalAssessment: string }
-  const feedback = null as Feedback | null;
+  const feedback =
+    userId && id
+      ? await getFeedbackByInterviewId({ interviewId: id, userId })
+      : null;
 
   // normalizing the type to handle cases like "mix of technical and behavioral" to "Mixed"
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
@@ -70,11 +72,7 @@ const InterviewCard = ({
 
           <Button className="btn-primary">
             <Link
-              href={
-                feedback
-                  ? `/interview/${id}/feedback`
-                  : `/interview/${id}`
-              }
+              href={feedback ? `/interview/${id}/feedback` : `/interview/${id}`}
             >
               {feedback ? "Check Feedback" : "View Interview"}
             </Link>
