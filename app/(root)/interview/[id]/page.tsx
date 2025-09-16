@@ -4,16 +4,22 @@ import Agent from "@/components/Agent";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 import { getRandomInterviewCover } from "@/lib/utils";
 import { getCurrentUser } from "@/lib/actions/auth.action";
-import { getInterviewById } from "@/lib/actions/general.action";
+import {
+  getFeedbackByInterviewId,
+  getInterviewById,
+} from "@/lib/actions/general.action";
 
-const Page = async ({ params }: RouteParams) => {
+const InterviewDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
   const user = await getCurrentUser();
+
   const interview = await getInterviewById(id);
-
-  if (!user) redirect("/login");
-
   if (!interview) redirect("/");
+
+  const feedback = await getFeedbackByInterviewId({
+    interviewId: id,
+    userId: user?.id || "",
+  });
 
   return (
     <>
@@ -39,13 +45,14 @@ const Page = async ({ params }: RouteParams) => {
       </div>
 
       <Agent
-        userName={user.name}
-        userId={user.id}
+        userName={user?.name || ""}
+        userId={user?.id}
         interviewId={id}
         type="interview"
         questions={interview.questions}
+        feedbackId={feedback?.id}
       />
     </>
   );
 };
-export default Page;
+export default InterviewDetails;

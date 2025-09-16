@@ -46,7 +46,7 @@ export async function getInterviewById(id: string): Promise<Interview | null> {
 }
 
 export async function createFeedback(params: CreateFeedbackParams) {
-  const { interviewId, userId, transcript } = params;
+  const { interviewId, userId, transcript, feedbackId } = params;
 
   try {
     const formattedTranscript = transcript.map((sentence: { role: string, content: string }) => (
@@ -83,10 +83,19 @@ export async function createFeedback(params: CreateFeedbackParams) {
       createdAt: new Date().toISOString()
     })
 
-    return { success: true, feedbackId: feedback.id };
-  } catch (e) {
-    console.error('Error saving feedback', e)
+    let feedbackRef;
 
+    if (feedbackId) {
+      feedbackRef = db.collection("feedback").doc(feedbackId);
+    } else {
+      feedbackRef = db.collection("feedback").doc();
+    }
+
+    await feedbackRef.set(feedback);
+
+    return { success: true, feedbackId: feedback.id };
+  } catch (error) {
+    console.error('Error saving feedback', error)
     return { success: false }
   }
 }

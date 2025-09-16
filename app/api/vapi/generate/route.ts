@@ -1,10 +1,3 @@
-// The workflow:
-// First a user will initiate a call with the AI assistant which is structured using VAPI Workflows. The assistant will then
-// ask a series of predefined questions like front-end, back-end, behavioural, technical interview etc. to collect user's
-// response. Once all the questions are answered, the assistant will end the call and send the collected information to our
-// API endpoint. The API will then feed this info to Gemini to generate AI questions based on user choices and stores this
-// data in Firestore database. The storage will enable us to display the gathered data on the dashboard so we can analyze it.
-
 import { generateText } from "ai";
 import { google } from "@ai-sdk/google";
 import { db } from "@/firebase/admin";

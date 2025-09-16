@@ -1,6 +1,3 @@
-// In next.js, when we use some client set of functionalities like button click, input or forms i.e. typically a client
-// render component, we need to specify that this component is a client component.
-// Simply, this tells Next.js this is a client component. Required when using hooks like useState, useEffect, or useForm.
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,6 +61,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         });
 
         if (!result.success) {
+          await userCredential.user.delete();
           toast.error(result.message);
           return;
         }
@@ -119,6 +117,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 name="name"
                 label="Name"
                 placeholder="Your Name"
+                type="text"
               />
             )}
             <FormField

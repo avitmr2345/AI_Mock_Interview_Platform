@@ -9,20 +9,17 @@ import {
   getLatestInterviews,
 } from "@/lib/actions/general.action";
 
-const Page = async () => {
+const HomePage = async () => {
   const user = await getCurrentUser();
 
   if (!user || !user.id) {
     return <p className="text-2xl font-semibold">You must be logged in</p>;
   }
 
-  const [userInterviews, latestInterviews] = await Promise.all([
+  const [userInterviews = [], allInterview = []] = await Promise.all([
     await getInterviewsByUserId(user.id),
     await getLatestInterviews({ userId: user.id }),
   ]);
-
-  const hasPastInterviews = userInterviews.length > 0;
-  const hasUpcomingInterviews = latestInterviews.length > 0;
 
   return (
     <>
@@ -54,7 +51,7 @@ const Page = async () => {
 
         <div className="interviews-section">
           {/* {...interview} spreads all key-value pairs from  the interview object into props. */}
-          {hasPastInterviews ? (
+          {userInterviews?.length ? (
             userInterviews?.map((interview) => (
               <InterviewCard {...interview} key={interview.id} />
             ))
@@ -68,12 +65,12 @@ const Page = async () => {
         <h2>Take an Interview</h2>
 
         <div className="interviews-section">
-          {hasUpcomingInterviews ? (
-            latestInterviews?.map((interview) => (
+          {allInterview?.length ? (
+            allInterview?.map((interview) => (
               <InterviewCard {...interview} key={interview.id} />
             ))
           ) : (
-            <p>There are no new interviews available</p>
+            <p>There are no interviews available</p>
           )}
         </div>
       </section>
@@ -81,4 +78,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default HomePage;

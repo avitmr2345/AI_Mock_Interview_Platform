@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { signOut } from "@/lib/actions/auth.action";
 
-const RootLayout = async ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
   const isUserAuthenticated = await isAuthenticated();
 
   if (!isUserAuthenticated) redirect("/sign-in");
@@ -35,4 +35,4 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default RootLayout;
+export default Layout;
