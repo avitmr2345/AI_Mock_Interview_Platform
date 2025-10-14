@@ -21,10 +21,10 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           <h2 className="text-primary-100">TechAce</h2>
         </Link>
         <div className="flex items-center gap-6">
-          <p className="capitalize text-xl text-gray-400 font-bold max-sm:gap-4">
+          <p className="capitalize text-xl text-primary-100 font-bold max-sm:gap-4">
             {user?.name}
           </p>
-          <Button className="text-[14px]" onClick={signOut}>
+          <Button className="text-[14px] text-red-600 font-bold" onClick={signOut}>
             Sign Out
           </Button>
         </div>
